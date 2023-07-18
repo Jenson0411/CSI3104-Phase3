@@ -1,0 +1,117 @@
+body{
+  background-color: rgb(255, 254, 254);
+
+}
+
+.homeBody{
+  background-image: url(bike.jpg);
+  margin-top: 0%;
+  background-position: center 20px;
+  text-align: center;
+}
+
+.homeBox{
+  position: absolute;
+	width: 100%;
+  height: 80%;
+	background-color: white;
+	/* overflow: auto; */
+}
+
+.navbar {
+  background-color: black;
+  padding: 20px;
+}
+
+.navbar nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar .left-section {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .logo {
+  margin-right: 20px;
+  margin-left: 10px;
+  width: 100px;
+  height: 50px;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.navbar .title {
+  margin-left: 20px;
+  color: #776b83;
+  font-size: 20px;
+  font-weight: bold;
+  white-space: nowrap;
+  margin-right: 2rem;
+}
+
+.navbar .right-section {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.navbar .right-section li {
+  margin-left: 10px;
+}
+
+
+.navbar a {
+  display: block;
+  background-color: black;
+  padding: 10px 20px;
+  white-space: nowrap;
+  text-decoration: none;
+  font-size: 16px;
+  color: white;
+}
+
+.navbar a:hover {
+    color: #9077d5;
+}
+
+.navbar a.active {
+    color: #9077d5;
+}
+
+#icon{
+  margin-left: 160px;
+  font-size: 200%;
+  color: white;
+}
+
+.location{
+  text-align: right;
+}
+/*======================================*/
+
+.box{
+  background-color: white;
+  padding: 20px;
+  margin-top: 10px;
+  height: fit-content;
+}
+
+.header{
+  margin-top: 100px;
+  font-size: 80px;
+}
+
+.openhours{
+  font-weight: bold;
+  font-size: 32px;
+}
+
+.openTime p{
+  margin-top: 30px;
+  font-size: 150%;
+}

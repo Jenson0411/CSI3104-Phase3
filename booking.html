@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/datepicker.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- <link rel="stylesheet" href="home.css"> -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <title>Home</title>
+</head>
+<body>
+    <div class="inner-layer">
+      <div class="container">
+        <div class="row no-margin">
+            <div class="col-sm-7">
+                <div class="content">
+                    <h1>Book You Slot Now </h1>
+                    <h2>Phone Number: (123) 456-7890</h2>
+                    <h2>Email:email@gmail.com</h2>
+                    <!-- <div id="openTimeBook">
+                      <h6>Monday      10:00 AM to 5:00 PM</h6>
+                      <h6>Tuesday      10:00 AM to 5:00 PM</h6>
+                      <h6>Wednesday      10:00 AM to 7:00 PM</h6>
+                      <h6>Thursday      10:00 AM to 4:00 PM</h6>
+                      <h6>Friday      12:00 PM to 3:00 PM</h6>
+                      <h6>Saturday     1 :00 PM to 6:00 PM<h6>
+                      <h6>Sunday:      Closed</h6>
+                  </div> -->
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="form-data">
+                    <div class="form-head">
+                        <h2>Book Appointemnt with the Doctor</h2>
+                    </div>
+                    <div class="form-body">
+                        <div class="row form-row">
+                          <input id="fullName"  type="text" placeholder="Enter Full name" class="form-control">
+                        </div>
+                         <div class="row form-row">
+                          <input id = "email" type="text" placeholder="Enter Email Adreess" class="form-control">
+                        </div>
+                        <div class="row form-row">
+                          <input id="technicianName" type="text" placeholder="Doctor name (leave it blank if you don't care)" class="form-control">
+                        </div>
+                       <div class="row form-row">
+                          <input id="appointmentDate" type="text" placeholder="Appointment Date" class="form-control">
+                        </div>
+                        <div class="row form-row">
+                            <div class="form-group">
+                                <div class="input-group date" id="appointmentTime" data-target-input="nearest">
+                                    <input type="text" placeholder="Time" class="form-control datetimepicker-input" data-target="#appointmentTime"/>
+                                    <div class="input-group-append" data-target="#appointmentTime" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="row form-row">
+                           <button id="bookAppointmentBtn"  class="btn btn-success btn-appointment">
+                             Book Appointment
+                           </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+  </div>
+  
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="assets/js/jquery-3.3.1.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/bootstrap-datepicker.js"></script>
+
+    <!-- Additional JS for Tempusdominus -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!--   Firebase    -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js%22%3E"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js%22%3E"></script>
+
+    <script>
+      $(document).ready(function(){
+          $("#appointmentDate").datepicker();
+          $('#appointmentTime').datetimepicker({
+              format: 'HH:mm',
+              stepping: 30
+          });
+
+          // Handle form submission
+          $("#bookAppointmentBtn").click(function() {
+            var fullName = $("#fullName").val();
+            var emailAddress = $("#email").val();
+            var appointmentDate = $("#appointmentDate").val();
+            var appointmentTime = $("#appointmentTime").find("input").val();
+            var errorMessage = "";
+
+            // Check if full name is empty
+            if (!fullName) {
+                errorMessage += "Please enter your full name.\n";
+            }
+
+            // Check if email address is empty
+            if (!emailAddress) {
+                errorMessage += "Please enter your email address.\n";
+            }
+
+            // Check if appointment date is empty
+            if (!appointmentDate) {
+                errorMessage += "Please select an appointment date.\n";
+            }
+
+            // Check if appointment time is empty
+            if (!appointmentTime) {
+                errorMessage += "Please select an appointment time.\n";
+            }
+
+            // Display warning if any of the fields are empty
+            if (errorMessage) {
+                alert(errorMessage);
+                return; // Stop form submission
+            }
+
+            var formData = {
+                fullName: fullName,
+                emailAddress: emailAddress,
+                technicianName: $("#technicianName").val(),
+                appointmentDate: appointmentDate,
+                appointmentTime: $("#appointmentTime").find("input").val() // Added this line to capture the appointment time
+            };
+            
+            localStorage.setItem("formData", JSON.stringify(formData));
+            
+            window.location.href = "bookingConfirm.html";
+          });
+      })
+    </script>
+</body>
+</html>
