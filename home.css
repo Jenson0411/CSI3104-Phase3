@@ -115,3 +115,7 @@ body{
   margin-top: 30px;
   font-size: 150%;
 }
+
+.bookingConfirmBox p, h1, h2{
+  text-align: center;
+}
