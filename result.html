@@ -1,44 +1,113 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Top 5 macthing illnesses</title>
-        <link rel="stylesheet" type="text/css" href="style.css">
-        <script src="result.js"></script>
-    </head>
-    <body>
-        <table>
+<head>
+    <meta charset="utf-8">
+    <title>Top 5 matching illnesses</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #e5e5e5;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDlxm5uR-LQkJEJVNxE8yLHqJCDgYJeZI8",
+            authDomain: "csi3104.firebaseapp.com",
+            databaseURL: "https://csi3104-default-rtdb.firebaseio.com",
+            projectId: "csi3104",
+            storageBucket: "csi3104.appspot.com",
+            messagingSenderId: "584071960033",
+            appId: "1:584071960033:web:15bd866289828250ddaea0",
+            measurementId: "G-22LQCR8318"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        let symptoms = ["Cough", "Fatigue", "Headaches", "Discharge running out of ear"];
+        let illnesses = ["Covid-19", "Flu", "Ear Infection", "Stroke", "Concusssion"];
+        let rows = []
+
+        function start() {
+            let tableBody = document.getElementById("tableBody");
+            let rank = 1;
+            let count = 0
+            for(let i = 0; i<illnesses.length; i++){
+                let dbRef = db.ref('Ilnesses/'+illnesses[i]);
+                dbRef.on('value', function(snapshot){
+                    let commonSymptoms = Object.values(snapshot.val());
+                    let numMatching = 0;
+                    let matchingSymptoms = [];
+                    for(let j = 0; j<symptoms.length; j++){
+                        if(commonSymptoms.includes(symptoms[j])){
+                            numMatching+=1;
+                            matchingSymptoms.push(symptoms[j]);
+                        }
+                    }
+                    rows.push([illnesses[i], numMatching, matchingSymptoms]); 
+                    if(i == illnesses.length-1){
+                        rows.sort((a, b) => b[1] - a[1]);
+                        for(let k = 0; k< rows.length; k++){
+                            if(rows[k][1]>0){
+                                let newRow = tableBody.insertRow();
+                                let rankCell = newRow.insertCell(0);
+                                let illnessCell = newRow.insertCell(1);
+                                let numCell = newRow.insertCell(2);
+                                let listCell = newRow.insertCell(3);
+
+                                // Set the values for the new row
+                                rankCell.innerHTML = k+1;
+                                illnessCell.innerHTML = rows[k][0];
+                                numCell.innerHTML = rows[k][1];
+                                listCell.innerHTML = rows[k][2];      
+                            }                          
+                        }
+                    }    
+                });
+            }    
+        }
+    </script>
+</head>
+<body onload="start()">
+    <table>
+        <thead>
             <tr>
                 <th>Ranking</th>
                 <th>Illness</th>
-                <th>Matching Percentage</th>
+                <th>Number of Matching</th>
+                <th>List of Matching Symptoms</th>
             </tr>
-            <tr>
-                <th>1</th>
-                <th id="illness1">Illness</th>
-                <th id="percentage1"></th>
-            </tr>
-            <tr>
-                <th>1</th>
-                <th id="illness1"></th>
-                <th id="percentage1"> </th>
-            </tr>
-            <tr>
-                <th>1</th>
-                <th id="illness1"></th>
-                <th id="percentage1"> </th>
-            </tr>
-            <tr>
-                <th>1</th>
-                <th id="illness1"></th>
-                <th id="percentage1"> </th>
-            </tr>
-            <tr>
-                <th>1</th>
-                <th id="illness1"></th>
-                <th id="percentage1"> </th>
-            </tr>
-            
-        </table>
-    </body>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+</body>
 </html>
