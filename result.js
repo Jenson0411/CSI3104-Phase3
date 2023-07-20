@@ -13,15 +13,26 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 let symptoms = ["Cough", "Fatigue", "Headaches", "Discharge running out of ear"];
-let illnesses = ["Covid-19", "Flu", "Ear Infection", "Stroke", "Concusssion"];
-let rows = []
+var illnesses = [];
 
-function start() {
+function start(){
+    dbRef = db.ref('Illnesses');
+    dbRef.on('value', function(snapshot){
+        illnesses = Object.keys(snapshot.val());
+        console.log(illnesses);
+        getTable();
+    });
+}
+
+
+function getTable() {
     let tableBody = document.getElementById("tableBody");
     let rank = 1;
     let count = 0
+    let rows = [];
     for(let i = 0; i<illnesses.length; i++){
-        let dbRef = db.ref('Ilnesses/'+illnesses[i]);
+    
+        let dbRef = db.ref('Illnesses/'+illnesses[i]);
         dbRef.on('value', function(snapshot){
             let commonSymptoms = Object.values(snapshot.val());
             let numMatching = 0;
@@ -36,8 +47,6 @@ function start() {
                     notMatchingSymtoms.push(commonSymptoms[j])
                 }
             }
-
-
             rows.push([illnesses[i], numMatching, matchingSymptoms, notMatchingSymtoms]); 
             if(i == illnesses.length-1){
                 rows.sort((a, b) => b[1] - a[1]);
@@ -60,5 +69,7 @@ function start() {
                 }
             }    
         });
-    }    
+    }  
+
+      
 }

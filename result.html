@@ -1,57 +1,29 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <title>Top 5 matching illnesses</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        th, td {
-            padding: 8px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        tr:nth-child(odd) {
-            background-color: #e5e5e5;
-        }
-
-        tr:hover {
-            background-color: #f5f5f5;
-        }
-    </style>
-    
-    <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script>
-    <script src="result.js"></script>
-</head>
-<body onload="start()">
-    <table>
-        <thead>
-            <tr>
-                <th>Ranking</th>
-                <th>Illness</th>
-                <th>Number of Matching</th>
-                <th>List of Matching Symptoms</th>
-                <th>List of Non Matching Symptoms</th> 
-            </tr>
-        </thead>
-        <tbody id="tableBody"></tbody>
-    </table>
-</body>
+    <head>
+        <meta charset="utf-8">
+        <title>Top 5 matching illnesses</title>
+        <link rel="stylesheet" type="text/css" href="result.css">
+        
+        <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script>
+        <script src="result.js"></script>
+    </head>
+    <body onload="start()">
+        <table>
+            <thead>
+                <tr>
+                    <th>Ranking</th>
+                    <th>Illness</th>
+                    <th>Number of Matching</th>
+                    <th>List of Matching Symptoms</th>
+                    <th>List of Non Matching Symptoms</th> 
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+        <a href="booking.html">
+            <button id="appointmentBtn">Book an appointment</button>
+        </a>
+    </body>
 </html>
