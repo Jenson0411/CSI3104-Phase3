@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <link rel="stylesheet" href="form-style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script>
+    <script src="autocomplete.js"></script>
+</head>
+<body>
+
+  <div class="search-box">
+    <div class="row">
+      <input type="text" id="input-box" placeholder="Search symptoms" autocomplete="off">
+      <button>Search</button>
+    </div>
+
+    <div class="result-box">
+      <ul id="result-list"></ul>
+    </div>
+  </div>
+
+  <div class="selected-box">
+    <div class="selected">
+      Selected symptoms: 
+      <div id="selected-items"></div>
+    </div>
+
+    <div class="submit-button">
+      <button id="submit-btn">Submit</button>
+    </div>
+  </div>
+
+
+</body>
+</html>
