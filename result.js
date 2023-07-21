@@ -8,18 +8,17 @@ const firebaseConfig = {
     appId: "1:584071960033:web:15bd866289828250ddaea0",
     measurementId: "G-22LQCR8318"
 };
-
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
-let symptoms = ["Cough", "Fatigue", "Headaches", "Discharge running out of ear"];
+let symptoms = localStorage.getItem("symptoms");
 var illnesses = [];
 
+console.log(symptoms);
 function start(){
     dbRef = db.ref('Illnesses');
     dbRef.on('value', function(snapshot){
         illnesses = Object.keys(snapshot.val());
-        console.log(illnesses);
         getTable();
     });
 }
@@ -70,6 +69,11 @@ function getTable() {
             }    
         });
     }  
+
+    const submitButton = document.getElementById("appointmentBtn").addEventListener("click", function (){
+        window.location.href = "booking.html";
+        localStorage.removeItem("symptoms");
+    })
 
       
 }
